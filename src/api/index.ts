@@ -3,6 +3,8 @@ import type { AxiosError } from "axios";
 import config from "@/config.json";
 import qs from "qs";
 import { message } from "antd";
+import useAppStore from "@/store/app-store";
+import { resetAllStore } from "@/store/resetter";
 const instance = axios.create({
   baseURL: config.baseURL,
   timeout: 1000,
@@ -24,6 +26,10 @@ instance.interceptors.request.use(
       config.transformRequest = [];
     } else {
       config.transformRequest = requestTransformer;
+    }
+    const token = useAppStore.getState().token;
+    if (url?.includes("/my") && token) {
+      config.headers.Authorization = token
     }
     console.log(config.data);
     return config;
@@ -56,8 +62,17 @@ instance.interceptors.response.use(
   (error: AxiosError<{ code: number; message: string }>) => {
     console.log(error);
     // message.error(error?.response?.data?.message ?? "未知错误");
+
     if (error.response && error.response.data) {
-      message.error(error.response.data.message);
+      const token = useAppStore.getState().token;
+      if (token && error.response.status === 401) {
+
+        message.error("登录过期，请重新登录！")
+        resetAllStore();
+      } else {
+        message.error(error.response.data.message);
+      }
+
       return Promise.reject(error.response.data);
     } else {
       let msg = "";

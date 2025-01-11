@@ -1,7 +1,7 @@
 /* eslint-disable react-refresh/only-export-components */
 import type { FC } from 'react'
 import { Button, Form, Input, message, Space } from 'antd'
-import { Link, redirect, useFetcher, useSearchParams } from 'react-router-dom'
+import { Link, useFetcher, useSearchParams } from 'react-router-dom'
 import { LockOutlined, UserOutlined } from '@ant-design/icons'
 import type { ActionFunctionArgs } from 'react-router-dom'
 import { loginApi } from '@/api/auth-api'
@@ -71,7 +71,8 @@ export const action = async ({ request }: ActionFunctionArgs) => {
     const res = await loginApi(fd)
     message.success(res.message)
     setToken(res.token)
-    return redirect('/')
+    // return redirect('/')
+    return null
   } catch (err) {
     return null
   }

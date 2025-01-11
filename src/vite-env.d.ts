@@ -15,10 +15,27 @@ interface BaseResponse {
 
 // -----------接口返回数据类型---------
 
-interface BaseResponse {
+interface BaseResponse<T = unknown> {
   code: number;
   message: string;
+  data?: T;
 }
 interface LoginResponse extends BaseResponse {
   token: string;
+}
+
+type User = {
+  readonly id: string;
+  username: string;
+  nickname?: string;
+  email: string;
+  user_pic?: string;
+}
+
+type MenuItem = {
+  readonly key: string;
+  title?: string;
+  label: string;
+  icon: React.ReactNode;
+  children?: MenuItem[]
 }
