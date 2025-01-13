@@ -39,3 +39,5 @@ type MenuItem = {
   icon: React.ReactNode;
   children?: MenuItem[]
 }
+
+type UserInfo = Pick<User, "id" | "email" | "nickname">

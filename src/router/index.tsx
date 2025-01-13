@@ -3,6 +3,7 @@ import { createBrowserRouter } from 'react-router-dom'
 import Login, { action as loginAction } from '@/views/auth/login.tsx'
 import Reg, { action as regAction } from '@/views/auth/reg.tsx'
 import Root, { loader as rootLoader } from '@/views/root/root.tsx'
+import { action as userInfoAction } from '@/views/user/user-info.tsx'
 import AuthLayout from '@/views/auth/auth-layout'
 import RootAuth from '@/views/root/root-auth'
 import Home from '@/views/home/home.tsx'
@@ -44,7 +45,7 @@ const route = createBrowserRouter([
       { index: true, element: <Home /> },
       { path: 'home', element: <Home /> },
       { path: 'user-avatar', element: <UserAvatar /> },
-      { path: 'user-info', element: <UserInfo /> },
+      { path: 'user-info', element: <UserInfo />, action: userInfoAction },
       { path: 'user-pwd', element: <UserPassword /> },
       { path: 'art-add', element: <ArticleAdd /> },
       { path: 'art-cate', element: <ArticleCate /> },

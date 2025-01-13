@@ -7,7 +7,7 @@ import useAppStore from "@/store/app-store";
 import { resetAllStore } from "@/store/resetter";
 const instance = axios.create({
   baseURL: config.baseURL,
-  timeout: 1000,
+  // timeout: 1000,
   headers: {
     "Content-Type": "application/x-www-form-urlencoded",
     "x-api-key": "ab428ee8-c6ae-4bee-86ca-a5bd3437cff5",

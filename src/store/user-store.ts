@@ -38,4 +38,9 @@ export const initUser = async () => {
 }
 export const selectName = (state: UserStoreType) => state.user.nickname || state.user.username
 export const selectAvatar = (state: UserStoreType) => state.user.user_pic
+export const selectUserInfo = (state: UserStoreType) => ({
+  id: state.user.id,
+  nickname: state.user.nickname || state.user.username,
+  email: state.user.email
+})
 export default useUserStore;
