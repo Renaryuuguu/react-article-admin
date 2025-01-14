@@ -41,3 +41,9 @@ type MenuItem = {
 }
 
 type UserInfo = Pick<User, "id" | "email" | "nickname">
+
+type resetPwdForm = {
+  old_pwd: string;
+  new_pwd: string;
+  re_pwd: string;
+}

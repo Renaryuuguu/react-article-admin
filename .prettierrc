@@ -12,5 +12,6 @@
   "proseWrap": "preserve",
   "endOfLine": "lf",
   "printWidth": 80,
-  "useTabs": false
+  "useTabs": false,
+  "jsxBracketSameLine": false
 }
