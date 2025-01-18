@@ -7,3 +7,5 @@ export const getMenuApi = () => axios.get<null, BaseResponse<MenuItem>>("/my/men
 export const updateUserApi = (data: FormData) => axios.put<null, BaseResponse>('/my/userinfo', data)
 
 export const updatePwdApi = (data: FormData) => axios.patch<null, BaseResponse>('/my/updatepwd', data)
+
+export const updateAvatarApi = (data: FormData) => axios.patch<null, BaseResponse>('/my/update/avatar', data)
