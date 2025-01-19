@@ -27,6 +27,16 @@ instance.interceptors.request.use(
     } else {
       config.transformRequest = requestTransformer;
     }
+
+    config.paramsSerializer = {
+      serialize(params) {
+        console.log(params)
+        if (params instanceof FormData)
+          return qs.stringify(Object.fromEntries(params))
+        else return qs.stringify(params)
+      }
+    }
+
     const token = useAppStore.getState().token;
     if (url?.includes("/my") && token) {
       config.headers.Authorization = token

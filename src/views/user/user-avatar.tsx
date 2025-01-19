@@ -18,7 +18,7 @@ const UserAvatar: FC = () => {
     iptRef.current?.click()
   }
   const onFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const files = e.target.files
+    const files = e.currentTarget.files
     if (!files || files.length === 0) return
     const fr = new FileReader()
     fr.readAsDataURL(files[0])

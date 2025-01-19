@@ -47,3 +47,9 @@ type resetPwdForm = {
   new_pwd: string;
   re_pwd: string;
 }
+
+type CateItem = {
+  readonly id: number,
+  cate_name: string,
+  cate_alias: string
+}

@@ -11,7 +11,10 @@ import UserAvatar, {
   action as userAvatarAction,
 } from '@/views/user/user-avatar.tsx'
 
-import ArticleCate from '@/views/article/article-cate.tsx'
+import ArticleCate, {
+  loader as articleCateLoader,
+  action as articleCateAction,
+} from '@/views/article/article-cate.tsx'
 import ArticleAdd from '@/views/article/article-add.tsx'
 import ArticleEdit from '@/views/article/article-edit.tsx'
 import ArticleList from '@/views/article/article-list.tsx'
@@ -58,7 +61,12 @@ const route = createBrowserRouter([
       { path: 'user-info', element: <UserInfo />, action: userInfoAction },
       { path: 'user-pwd', element: <UserPassword />, action: userPwdAction },
       { path: 'art-add', element: <ArticleAdd /> },
-      { path: 'art-cate', element: <ArticleCate /> },
+      {
+        path: 'art-cate',
+        element: <ArticleCate />,
+        loader: articleCateLoader,
+        action: articleCateAction,
+      },
       { path: 'art-edit', element: <ArticleEdit /> },
       { path: 'art-list', element: <ArticleList /> },
     ],
