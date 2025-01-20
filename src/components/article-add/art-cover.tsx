@@ -13,6 +13,10 @@ const ArticleCover: FC = () => {
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.currentTarget.files
     if (!files || files.length === 0) return
+
+    if (files[0].size > 2 * 1024 * 1024)
+      return message.error('封面图片大小不能超过2M！')
+    // console.dir(files[0])
     // const fr = new FileReader()
     // fr.readAsDataURL(files[0])
     // fr.onload = () => {

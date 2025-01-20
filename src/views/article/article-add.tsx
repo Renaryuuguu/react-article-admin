@@ -14,9 +14,11 @@ import useArtAddStore, {
   setCurrent,
 } from '@/store/art-add-store'
 import localforage from '@/utils/localforage'
-import { message, Steps } from 'antd'
-import type { FC } from 'react'
+import { FloatButton, message, Modal, Steps } from 'antd'
+import { useEffect, useRef, type FC } from 'react'
 import { StorageValue } from 'zustand/middleware'
+
+import { ClearOutlined } from '@ant-design/icons'
 const items = [
   { title: '基本信息' },
   { title: '文章封面' },
@@ -26,6 +28,23 @@ const items = [
 const ArticleAdd: FC = () => {
   const current = useArtAddStore(selectCurrent)
   const hydrated = useArtAddStore(selectHydrated)
+  const modalRef = useRef<() => void>()
+  useEffect(() => {
+    return () => modalRef.current && modalRef.current()
+  }, [])
+  const handleClean = () => {
+    modalRef.current = Modal.confirm({
+      title: '确认清空表单？',
+      content: '此操作会清空表单中填写的所有数据，确认清空吗？',
+      okText: '确认',
+      cancelText: '取消',
+      onOk: () => {
+        clearArticle()
+        resetCurrent()
+        message.success('表单清空完毕！')
+      },
+    }).destroy
+  }
   return (
     hydrated && (
       <div>
@@ -36,15 +55,13 @@ const ArticleAdd: FC = () => {
           {current === ArticleSteps.cover && <ArticleCover />}
           {current === ArticleSteps.content && <ArticleContent />}
           {current === ArticleSteps.done && <ArticleResult />}
-          {/* <Button onClick={() => setCurrent((current) => current - 1)}>
-          上一步
-        </Button>
-        <Button
-          onClick={() => setCurrent((current) => current + 1)}
-          type="primary">
-          下一步
-        </Button> */}
         </div>
+        <FloatButton
+          type="primary"
+          tooltip="清空表单"
+          onClick={handleClean}
+          icon={<ClearOutlined />}
+        />
       </div>
     )
   )
