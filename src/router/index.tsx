@@ -15,7 +15,10 @@ import ArticleCate, {
   loader as articleCateLoader,
   action as articleCateAction,
 } from '@/views/article/article-cate.tsx'
-import ArticleAdd from '@/views/article/article-add.tsx'
+import ArticleAdd, {
+  loader as articleAddLoader,
+  action as articleAddAction,
+} from '@/views/article/article-add.tsx'
 import ArticleEdit from '@/views/article/article-edit.tsx'
 import ArticleList from '@/views/article/article-list.tsx'
 
@@ -60,7 +63,15 @@ const route = createBrowserRouter([
       },
       { path: 'user-info', element: <UserInfo />, action: userInfoAction },
       { path: 'user-pwd', element: <UserPassword />, action: userPwdAction },
-      { path: 'art-add', element: <ArticleAdd /> },
+      {
+        path: 'art-add',
+        element: <ArticleAdd />,
+        loader: articleAddLoader,
+        action: articleAddAction,
+        shouldRevalidate: () => {
+          return false
+        },
+      },
       {
         path: 'art-cate',
         element: <ArticleCate />,

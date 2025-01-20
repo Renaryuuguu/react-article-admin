@@ -53,3 +53,14 @@ type CateItem = {
   cate_name: string,
   cate_alias: string
 }
+
+type ArticleAddForm = {
+  title: string,
+  cate_id: string,
+  content: string,
+  state: '已发布' | '草稿',
+  cover_img: Blob,
+  [key: string]: string | Blob
+}
+
+type ArticleBaseForm = Partial<Pick<ArticleAddForm, 'title' | 'cate_id'>>
