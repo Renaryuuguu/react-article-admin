@@ -24,6 +24,10 @@ interface LoginResponse extends BaseResponse {
   token: string;
 }
 
+interface ArticleListResponse extends BaseResponse<Article[]> {
+  total: number;
+}
+
 type User = {
   readonly id: string;
   username: string;
@@ -64,3 +68,18 @@ type ArticleAddForm = {
 }
 
 type ArticleBaseForm = Partial<Pick<ArticleAddForm, 'title' | 'cate_id'>>
+
+type ArticleListQuery = {
+  pagenum: number,
+  pagesize: number,
+  cate_id: number | string,
+  state: string,
+}
+
+type Article = {
+  readonly id: number,
+  title: string,
+  pub_date: string,
+  state: '已发布' | '草稿',
+  cate_name: string
+}

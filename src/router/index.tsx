@@ -20,7 +20,10 @@ import ArticleAdd, {
   action as articleAddAction,
 } from '@/views/article/article-add.tsx'
 import ArticleEdit from '@/views/article/article-edit.tsx'
-import ArticleList from '@/views/article/article-list.tsx'
+import ArticleList, {
+  loader as articleListLoader,
+  action as articleListAction,
+} from '@/views/article/article-list.tsx'
 
 import AuthLayout from '@/views/auth/auth-layout.tsx'
 import RootAuth from '@/views/root/root-auth.tsx'
@@ -78,8 +81,13 @@ const route = createBrowserRouter([
         loader: articleCateLoader,
         action: articleCateAction,
       },
-      { path: 'art-edit', element: <ArticleEdit /> },
-      { path: 'art-list', element: <ArticleList /> },
+      { path: 'art-edit/:id', element: <ArticleEdit /> },
+      {
+        path: 'art-list',
+        element: <ArticleList />,
+        loader: articleListLoader,
+        action: articleListAction,
+      },
     ],
   },
 ])
