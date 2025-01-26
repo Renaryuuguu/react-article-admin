@@ -19,7 +19,7 @@ import { useEffect, useRef, type FC } from 'react'
 import { StorageValue } from 'zustand/middleware'
 
 import { ClearOutlined } from '@ant-design/icons'
-const items = [
+export const stepItems = [
   { title: '基本信息' },
   { title: '文章封面' },
   { title: '文章内容' },
@@ -48,7 +48,7 @@ const ArticleAdd: FC = () => {
   return (
     hydrated && (
       <div>
-        <Steps items={items} current={current} size="small"></Steps>
+        <Steps items={stepItems} current={current} size="small" />
 
         <div style={{ marginTop: 20 }}>
           {current === ArticleSteps.base && <ArticleBase />}

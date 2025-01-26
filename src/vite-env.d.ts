@@ -69,6 +69,8 @@ type ArticleAddForm = {
 
 type ArticleBaseForm = Partial<Pick<ArticleAddForm, 'title' | 'cate_id'>>
 
+type ArticleEditBaseForm = ArticleBaseForm
+
 type ArticleListQuery = {
   pagenum: number,
   pagesize: number,
@@ -83,3 +85,5 @@ type Article = {
   state: '已发布' | '草稿',
   cate_name: string
 }
+
+type ArticleEditForm = ArticleAddForm & { readonly id: string }

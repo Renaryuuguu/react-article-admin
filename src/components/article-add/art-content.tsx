@@ -12,7 +12,7 @@ import 'react-quill/dist/quill.snow.css'
 import styels from './css/art-content.module.less'
 import { useSubmit } from 'react-router-dom'
 import { useNavSubmitting } from '@/utils/hooks'
-const modules = {
+export const modules = {
   toolbar: [
     ['bold', 'italic', 'underline', 'strike'], // toggled buttons
     ['blockquote', 'code-block'],

@@ -19,7 +19,10 @@ import ArticleAdd, {
   loader as articleAddLoader,
   action as articleAddAction,
 } from '@/views/article/article-add.tsx'
-import ArticleEdit from '@/views/article/article-edit.tsx'
+import ArticleEdit, {
+  loader as articleEditLoader,
+  action as articleEditAction,
+} from '@/views/article/article-edit.tsx'
 import ArticleList, {
   loader as articleListLoader,
   action as articleListAction,
@@ -81,7 +84,15 @@ const route = createBrowserRouter([
         loader: articleCateLoader,
         action: articleCateAction,
       },
-      { path: 'art-edit/:id', element: <ArticleEdit /> },
+      {
+        path: 'art-edit/:id',
+        element: <ArticleEdit />,
+        loader: articleEditLoader,
+        action: articleEditAction,
+        shouldRevalidate: () => {
+          return false
+        },
+      },
       {
         path: 'art-list',
         element: <ArticleList />,
