@@ -7,6 +7,7 @@ import useArticleEditStore, {
 import { message, Modal, Steps } from 'antd'
 import { useCallback, useEffect, useRef, type FC } from 'react'
 import {
+  defer,
   LoaderFunctionArgs,
   useBeforeUnload,
   useBlocker,
@@ -67,14 +68,10 @@ const ArticleEdit: FC = () => {
   )
 }
 export const loader = async ({ params }: LoaderFunctionArgs) => {
-  await initialArticle(params.id!)
-  try {
-    const res = await getCateListApi()
-    resetCurrent()
-    return { cates: res.data }
-  } catch (error) {
-    return null
-  }
+  const flag = initialArticle(params.id!)
+  const cates = getCateListApi()
+  resetCurrent()
+  return defer({ flag, cates })
 }
 
 export const action = async () => {

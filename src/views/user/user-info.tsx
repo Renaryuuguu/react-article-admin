@@ -1,17 +1,18 @@
 import { updateUserApi } from '@/api/user-api'
 import useUserStore, { selectUserInfo } from '@/store/user-store'
+import { useNavSubmitting } from '@/utils/hooks'
 import { Button, Form, Input, message, Space } from 'antd'
 import { useForm } from 'antd/es/form/Form'
 import type { FC } from 'react'
-import { ActionFunctionArgs, useNavigation, useSubmit } from 'react-router-dom'
+import { ActionFunctionArgs, useSubmit } from 'react-router-dom'
 
 const UserInfo: FC = () => {
   const userInfo = useUserStore(selectUserInfo)
   const submit = useSubmit()
-  const navigation = useNavigation()
   const [formRef] = useForm()
+  const submitting = useNavSubmitting('PUT')
   const onFinish = (values: UserInfo) => {
-    console.log(values)
+    if (submitting) return
     submit(values, {
       method: 'PUT',
     })
@@ -60,7 +61,7 @@ const UserInfo: FC = () => {
           <Button
             type="primary"
             htmlType="submit"
-            loading={navigation.state !== 'idle' && { delay: 200 }}>
+            loading={submitting && { delay: 200 }}>
             保存
           </Button>
           <Button

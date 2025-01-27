@@ -7,9 +7,16 @@ import {
 import BtnAdd from '@/components/article-cate/btn-add'
 import BtnDel from '@/components/article-cate/btn-del'
 import BtnEdit from '@/components/article-cate/btn-edit'
-import { Button, message, Space, Table, TableProps } from 'antd'
-import type { FC } from 'react'
-import { ActionFunctionArgs, useLoaderData } from 'react-router-dom'
+import LoaderErrorElement from '@/components/common/loader-error-element'
+import { delay } from '@/utils'
+import { message, Space, Table, TableProps } from 'antd'
+import { Suspense, type FC } from 'react'
+import {
+  ActionFunctionArgs,
+  Await,
+  defer,
+  useLoaderData,
+} from 'react-router-dom'
 
 const columns: TableProps<CateItem>['columns'] = [
   {
@@ -38,31 +45,36 @@ const columns: TableProps<CateItem>['columns'] = [
 ]
 
 const ArticleCate: FC = () => {
-  const loaderData = useLoaderData() as { cates: CateItem[] } | null
+  const loaderData = useLoaderData() as {
+    result: Promise<BaseResponse<CateItem[]>>
+  }
   // console.log(loaderData)
   return (
-    loaderData && (
-      <Space direction="vertical" style={{ display: 'flex' }}>
-        <BtnAdd />
-        <Table
-          dataSource={loaderData?.cates}
-          columns={columns}
-          size="middle"
-          rowKey="id"
-          pagination={false}
-          bordered
-        />
-      </Space>
-    )
+    <Suspense fallback={<Table loading={true} />}>
+      <Await resolve={loaderData.result} errorElement={<LoaderErrorElement />}>
+        {(result: BaseResponse<CateItem[]>) => {
+          return (
+            <Space direction="vertical" style={{ display: 'flex' }}>
+              <BtnAdd />
+              <Table
+                dataSource={result.data}
+                columns={columns}
+                size="middle"
+                rowKey="id"
+                pagination={false}
+                bordered
+              />
+            </Space>
+          )
+        }}
+      </Await>
+    </Suspense>
   )
 }
 export const loader = async () => {
-  try {
-    const res = await getCateListApi()
-    return { cates: res.data }
-  } catch (error) {
-    null
-  }
+  const result = getCateListApi()
+  // return defer({ result: delay(20) })
+  return defer({ result })
 }
 export const action = async ({ request }: ActionFunctionArgs) => {
   const fd = await request.formData()

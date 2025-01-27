@@ -3,6 +3,7 @@ import { Button, Popconfirm, PopconfirmProps } from 'antd'
 import { useEffect, useState, type FC } from 'react'
 import {
   useActionData,
+  useAsyncValue,
   useLoaderData,
   useLocation,
   useSubmit,
@@ -20,9 +21,14 @@ const ArticleDelBtn: FC<{ id: number }> = ({ id }) => {
   const actionData = useActionData() as null | boolean
   const loaderData = useLoaderData() as {
     queryParam: ArticleListQuery
-    total: number
-    list: Article[]
-  } | null
+  }
+  const [, artListResult] = useAsyncValue() as [
+    BaseResponse<CateItem[]>,
+    ArticleListResponse,
+  ]
+  const { queryParam } = loaderData
+  const list = artListResult.data || []
+  const total = artListResult.total
   useEffect(() => {
     if (actionData && loading) {
       setOpen(false)
@@ -31,7 +37,7 @@ const ArticleDelBtn: FC<{ id: number }> = ({ id }) => {
   const onConfirm = () => {
     let needBack = false
     if (loaderData) {
-      const { queryParam, total, list } = loaderData
+      // const { queryParam, total, list } = loaderData
       needBack =
         list.length === 1 &&
         queryParam.pagenum !== 1 &&

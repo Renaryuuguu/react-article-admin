@@ -19,6 +19,7 @@ import { useEffect, useRef, type FC } from 'react'
 import { StorageValue } from 'zustand/middleware'
 
 import { ClearOutlined } from '@ant-design/icons'
+import { defer } from 'react-router-dom'
 export const stepItems = [
   { title: '基本信息' },
   { title: '文章封面' },
@@ -71,16 +72,17 @@ export const loader = async () => {
   const localData =
     await localforage.getItem<StorageValue<ArtAddStore>>('art-add-store')
   const current = localData?.state.current
-  // console.log(localData, current, 1)
   if (current === ArticleSteps.done) {
     resetCurrent()
   }
-  try {
-    const res = await getCateListApi()
-    return { cates: res.data }
-  } catch (error) {
-    return null
-  }
+  // try {
+  //   const res = await getCateListApi()
+  //   return { cates: res.data }
+  // } catch (error) {
+  //   return null
+  // }
+  const result = getCateListApi()
+  return defer({ result })
 }
 
 export const action = async () => {

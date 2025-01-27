@@ -1,4 +1,5 @@
 import { updatePwdApi } from '@/api/user-api'
+import { useNavSubmitting } from '@/utils/hooks'
 import { Button, Form, Input, message, Space, Spin } from 'antd'
 import { useForm } from 'antd/es/form/Form'
 import type { FC } from 'react'
@@ -14,10 +15,12 @@ const UserPassword: FC = () => {
   const [formRef] = useForm()
   const navigation = useNavigation()
   const actionData = useActionData() as { result: boolean } | null
+  const submitting = useNavSubmitting('PATCH')
   if (actionData?.result) {
     formRef.resetFields()
   }
   const onFinish = (values: resetPwdForm) => {
+    if (submitting) return
     submit(values, {
       method: 'PATCH',
     })
@@ -30,7 +33,7 @@ const UserPassword: FC = () => {
       wrapperCol={{ span: 16 }}
       onFinish={onFinish}
       form={formRef}>
-      <Spin spinning={navigation.state !== 'idle'} delay={200}>
+      <Spin spinning={submitting} delay={200}>
         <Form.Item
           label="原密码"
           name="old_pwd"

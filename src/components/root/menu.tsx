@@ -1,6 +1,11 @@
 import { Menu, MenuProps } from 'antd'
 import { useState, type FC } from 'react'
-import { useLoaderData, useLocation, useNavigate } from 'react-router-dom'
+import {
+  useAsyncValue,
+  useLoaderData,
+  useLocation,
+  useNavigate,
+} from 'react-router-dom'
 import {
   HomeOutlined,
   ReadOutlined,
@@ -36,7 +41,7 @@ const resolveMenuIcon = (menus: MenuItem[]) => {
 }
 const rootSubmenuKeys = ['2', '3']
 const findParentKeys = (
-  menus: MenuItem[] | undefined,
+  menus: MenuItem[],
   key: string,
   parentKey: string = '',
 ): string => {
@@ -58,15 +63,17 @@ const RootMenu: FC = () => {
   const location = useLocation()
   const selectedKeys = location.pathname === '/' ? '/home' : location.pathname
   const navigate = useNavigate()
-  const data = useLoaderData() as { menus: MenuItem[] } | null
+  // const data = useLoaderData() as { menus: MenuItem[] } | null
+  const [menuResult] = useAsyncValue() as [BaseResponse<MenuItem[]>]
+  const menus = menuResult.data || []
   const [stateOpenKeys, setStateOpenKeys] = useState<string[]>([
-    findParentKeys(data?.menus, selectedKeys),
+    findParentKeys(menus, selectedKeys),
   ])
   // console.log(data)
-  if (!data) {
-    return
-  }
-  const { menus } = data
+  // if (!data) {
+  //   return
+  // }
+  // const { menus } = data
   resolveMenuIcon(menus)
 
   const onOpenChange: MenuProps['onOpenChange'] = (openKeys) => {

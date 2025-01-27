@@ -1,7 +1,7 @@
 import { Button, FormProps, Input, Select } from 'antd'
-import { useLayoutEffect, type FC } from 'react'
+import { Suspense, useLayoutEffect, type FC } from 'react'
 import { Form } from 'antd'
-import { useLoaderData } from 'react-router-dom'
+import { Await, useLoaderData } from 'react-router-dom'
 import useArtAddStore, {
   Move,
   selectArticleBase,
@@ -10,11 +10,13 @@ import useArtAddStore, {
 } from '@/store/art-add-store'
 
 const ArticleBase: FC = () => {
-  const loaderData = useLoaderData() as { cates: CateItem[] } | null
+  const loaderData = useLoaderData() as {
+    result: Promise<BaseResponse<CateItem[]>>
+  }
   const baseForm = useArtAddStore(selectArticleBase)
   const [formRef] = Form.useForm()
-  console.log(baseForm)
-  console.log(loaderData?.cates)
+  // console.log(baseForm)
+  // console.log(loaderData?.cates)
   useLayoutEffect(() => {
     formRef.setFieldsValue(baseForm)
   }, [baseForm, formRef])
@@ -48,22 +50,39 @@ const ArticleBase: FC = () => {
             allowClear
           />
         </Form.Item>
-        <Form.Item
-          label="文章分类"
-          name="cate_id"
-          rules={[{ required: true, message: '请选择文章分类' }]}>
-          <Select
-            options={loaderData ? loaderData.cates : []}
-            placeholder="请选择文章分类"
-            allowClear
-            fieldNames={{ label: 'cate_name', value: 'id' }}
-          />
-        </Form.Item>
-        <Form.Item wrapperCol={{ offset: 4 }}>
-          <Button type="primary" htmlType="submit">
-            下一步
-          </Button>
-        </Form.Item>
+        <Suspense
+          fallback={
+            <Form.Item
+              label="文章分类"
+              rules={[{ required: true, message: '请选择文章分类' }]}>
+              <Select placeholder="请选择文章分类" options={[]} loading />
+            </Form.Item>
+          }>
+          <Await resolve={loaderData.result}>
+            {(result: BaseResponse<CateItem[]>) => {
+              return (
+                <>
+                  <Form.Item
+                    label="文章分类"
+                    name="cate_id"
+                    rules={[{ required: true, message: '请选择文章分类' }]}>
+                    <Select
+                      options={result.data}
+                      placeholder="请选择文章分类"
+                      allowClear
+                      fieldNames={{ label: 'cate_name', value: 'id' }}
+                    />
+                  </Form.Item>
+                  <Form.Item wrapperCol={{ offset: 4 }}>
+                    <Button type="primary" htmlType="submit">
+                      下一步
+                    </Button>
+                  </Form.Item>
+                </>
+              )
+            }}
+          </Await>
+        </Suspense>
       </Form>
     </div>
   )

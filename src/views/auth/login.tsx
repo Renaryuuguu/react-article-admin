@@ -13,7 +13,7 @@ const Login: FC = () => {
   const fetcher = useFetcher()
   console.log(fetcher.state)
   const onFinish = (values: LoginForm) => {
-    console.log(values)
+    if (fetcher.state === 'submitting') return
     fetcher.submit(values, {
       method: 'POST',
       action: '/login',
@@ -53,7 +53,7 @@ const Login: FC = () => {
           <Button
             type="primary"
             htmlType="submit"
-            loading={fetcher.state !== 'idle' && { delay: 200 }}>
+            loading={fetcher.state === 'submitting' && { delay: 200 }}>
             登录
           </Button>
           <div>

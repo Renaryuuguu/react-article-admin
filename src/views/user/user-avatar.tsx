@@ -3,6 +3,7 @@ import { Avatar, Button, message, Space } from 'antd'
 import useUserStore, { selectAvatar } from '@/store/user-store'
 import { ActionFunctionArgs, useNavigation, useSubmit } from 'react-router-dom'
 import { updateAvatarApi } from '@/api/user-api'
+import { useNavSubmitting } from '@/utils/hooks'
 const UserAvatar: FC = () => {
   const avatar_url = useUserStore(selectAvatar)
   const iptRef = useRef<HTMLInputElement>(null)
@@ -13,7 +14,7 @@ const UserAvatar: FC = () => {
   const submit = useSubmit()
 
   const navigation = useNavigation()
-
+  const submitting = useNavSubmitting('PATCH')
   const showDiaglog = () => {
     iptRef.current?.click()
   }
@@ -27,6 +28,7 @@ const UserAvatar: FC = () => {
     }
   }
   const saveAvatar = () => {
+    if (submitting) return
     submit({ avatar: newAvatar }, { method: 'PATCH' })
   }
   return (
@@ -44,7 +46,7 @@ const UserAvatar: FC = () => {
           type="primary"
           disabled={isDisabled}
           onClick={saveAvatar}
-          loading={navigation.state === 'submitting' && { delay: 200 }}>
+          loading={submitting && { delay: 200 }}>
           保存头像
         </Button>
         <input

@@ -50,6 +50,7 @@ export const initialArticle = async (id: string) => {
   } catch (error) {
     return null
   }
+  return true
 }
 
 export const updateBase = (values: ArticleEditBaseForm) => {

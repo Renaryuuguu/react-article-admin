@@ -1,15 +1,14 @@
 import { Button, Form, Select } from 'antd'
 import { useEffect, type FC } from 'react'
-import { useLoaderData, useSearchParams } from 'react-router-dom'
+import { useAsyncValue, useLoaderData, useSearchParams } from 'react-router-dom'
 
 const ArticleListSearch: FC = () => {
   const [, setParams] = useSearchParams()
   const [formRef] = Form.useForm()
   const loaderData = useLoaderData() as {
-    cates: CateItem[]
     queryParam: ArticleListQuery
-  } | null
-
+  }
+  const [artCateResult] = useAsyncValue() as [BaseResponse<CateItem[]>]
   useEffect(() => {
     formRef.setFieldsValue({
       cate_id: loaderData?.queryParam.cate_id,
@@ -25,7 +24,7 @@ const ArticleListSearch: FC = () => {
     } as unknown as { [key: string]: string }
     setParams(params)
   }
-  console.log(loaderData?.cates, loaderData?.queryParam)
+  // console.log(loaderData?.cates, loaderData?.queryParam)
   return (
     <Form form={formRef} layout="inline" onFinish={onFinish}>
       <Form.Item name="cate_id" label="分类">
@@ -33,8 +32,8 @@ const ArticleListSearch: FC = () => {
           placeholder="请选择"
           style={{ width: 180 }}
           options={
-            loaderData?.cates
-              ? [{ cate_name: '请选择', id: '' }, ...loaderData.cates]
+            artCateResult.data
+              ? [{ cate_name: '请选择', id: '' }, ...artCateResult.data]
               : []
           }
           fieldNames={{

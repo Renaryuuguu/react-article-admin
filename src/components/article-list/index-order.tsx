@@ -3,7 +3,7 @@ import { useLoaderData } from 'react-router-dom'
 
 const IndexOrder: FC<{ index: number }> = ({ index }) => {
   const loaderData = useLoaderData() as { queryParam: ArticleListQuery } | null
-  console.log(loaderData)
+  // console.log(loaderData)
   return (
     loaderData &&
     (loaderData.queryParam.pagenum - 1) * loaderData.queryParam.pagesize +
