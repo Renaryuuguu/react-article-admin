@@ -6,6 +6,7 @@ const devConfig: UserConfig = {
   plugins: [react(), createHtmlPlugin({
     minify: false,
     entry: 'src/main.tsx',
+    viteNext: true,
     inject: {
       data: {
         title: 'dev-文章后台管理系统',

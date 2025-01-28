@@ -18,7 +18,7 @@ const Reg: FC = () => {
     })
   }
   return (
-    <Form onFinish={onFinish} size="large">
+    <Form wrapperCol={{ span: 24 }} labelCol={{ span: 4 }} onFinish={onFinish}>
       <Form.Item
         label="用户名"
         name="username"
@@ -29,7 +29,7 @@ const Reg: FC = () => {
             message: '用户名只能包含字母、数字，长度为1-10位',
           },
         ]}>
-        <Input prefix={<UserOutlined />} placeholder="Username" />
+        <Input prefix={<UserOutlined />} placeholder="请输入用户名" />
       </Form.Item>
 
       <Form.Item
@@ -45,7 +45,7 @@ const Reg: FC = () => {
         <Input
           prefix={<LockOutlined />}
           type="password"
-          placeholder="Password"
+          placeholder="请输入密码"
         />
       </Form.Item>
 
@@ -71,11 +71,11 @@ const Reg: FC = () => {
         <Input
           prefix={<LockOutlined />}
           type="password"
-          placeholder="Confirm password"
+          placeholder="请确认密码"
         />
       </Form.Item>
 
-      <Form.Item>
+      <Form.Item wrapperCol={{ offset: 4 }}>
         <Space direction="vertical">
           <Button
             type="primary"

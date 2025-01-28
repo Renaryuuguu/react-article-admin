@@ -1,1 +1,0 @@
-import{B as s,d as e}from"../entry/index-poDKF_yo.js";const m=(n,a)=>{var o;const t=s(),i=e();return t.state==="loading"&&((o=t.formMethod)==null?void 0:o.toUpperCase())===n&&t.formAction===(a??i.pathname)},g=(n,a)=>{var o;const t=s(),i=e();return t.state==="submitting"&&((o=t.formMethod)==null?void 0:o.toUpperCase())===n&&t.formAction===(a??i.pathname)};export{m as a,g as u};

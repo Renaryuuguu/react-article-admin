@@ -21,6 +21,8 @@ const Login: FC = () => {
   }
   return (
     <Form
+      wrapperCol={{ span: 24 }}
+      labelCol={{ span: 4 }}
       onFinish={onFinish}
       initialValues={{ username: searchParams.get('uname') }}>
       <Form.Item
@@ -48,7 +50,7 @@ const Login: FC = () => {
           placeholder="请输入密码"
         />
       </Form.Item>
-      <Form.Item>
+      <Form.Item wrapperCol={{ offset: 4 }}>
         <Space direction="vertical">
           <Button
             type="primary"

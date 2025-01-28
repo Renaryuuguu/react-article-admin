@@ -5,6 +5,7 @@ import { visualizer } from 'rollup-plugin-visualizer'
 import { createHtmlPlugin } from 'vite-plugin-html'
 import externalGlobals from 'rollup-plugin-external-globals'
 const prodConfig: UserConfig = {
+  // base: '/react-article-admin/',
   plugins: [
     react(),
     visualizer({
@@ -21,6 +22,7 @@ const prodConfig: UserConfig = {
     createHtmlPlugin({
       minify: true,
       entry: 'src/main.tsx',
+      viteNext: true,
       inject: {
         data: {
           title: '文章后台管理系统',
@@ -48,7 +50,6 @@ const prodConfig: UserConfig = {
     },
   },
   build: {
-    outDir: 'docs',
     rollupOptions: {
 
       output: {
