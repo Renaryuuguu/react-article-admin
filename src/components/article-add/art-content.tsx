@@ -6,7 +6,7 @@ import useArtAddStore, {
   setCurrent,
 } from '@/store/art-add-store'
 import { Button, message, Space, Spin } from 'antd'
-import { useState, type FC } from 'react'
+import type { FC } from 'react'
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
 import styels from './css/art-content.module.less'

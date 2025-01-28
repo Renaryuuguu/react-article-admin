@@ -2,7 +2,6 @@ import { deleteArticleApi, getArticleListApi } from '@/api/article-api'
 import { getCateListApi } from '@/api/cate-api'
 import ArticleListSearch from '@/components/article-list/list-search'
 import ArticleListTable from '@/components/article-list/list-table'
-import { useNavLoading } from '@/utils/hooks'
 import { Button, Flex, message, Skeleton, Space, Spin } from 'antd'
 import { Suspense, useMemo, type FC } from 'react'
 import {
@@ -12,7 +11,6 @@ import {
   LoaderFunctionArgs,
   redirect,
   useLoaderData,
-  useLocation,
   useNavigate,
   useNavigation,
 } from 'react-router-dom'
@@ -23,7 +21,6 @@ const ArticleList: FC = () => {
     result: Promise<[BaseResponse<CateItem[]>, ArticleListResponse]>
     queryParam: ArticleListQuery
   }
-  const location = useLocation()
   const navigation = useNavigation()
   // const loading = useNavLoading('DELETE', location.pathname + location.search)
   const navLoading = useMemo(() => {

@@ -8,7 +8,6 @@ import BtnAdd from '@/components/article-cate/btn-add'
 import BtnDel from '@/components/article-cate/btn-del'
 import BtnEdit from '@/components/article-cate/btn-edit'
 import LoaderErrorElement from '@/components/common/loader-error-element'
-import { delay } from '@/utils'
 import { message, Space, Table, TableProps } from 'antd'
 import { Suspense, type FC } from 'react'
 import {

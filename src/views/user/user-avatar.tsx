@@ -1,7 +1,7 @@
 import { useMemo, useRef, useState, type FC } from 'react'
 import { Avatar, Button, message, Space } from 'antd'
 import useUserStore, { selectAvatar } from '@/store/user-store'
-import { ActionFunctionArgs, useNavigation, useSubmit } from 'react-router-dom'
+import { ActionFunctionArgs, useSubmit } from 'react-router-dom'
 import { updateAvatarApi } from '@/api/user-api'
 import { useNavSubmitting } from '@/utils/hooks'
 const UserAvatar: FC = () => {
@@ -13,7 +13,6 @@ const UserAvatar: FC = () => {
   }, [newAvatar, avatar_url])
   const submit = useSubmit()
 
-  const navigation = useNavigation()
   const submitting = useNavSubmitting('PATCH')
   const showDiaglog = () => {
     iptRef.current?.click()

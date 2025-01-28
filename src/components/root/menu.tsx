@@ -1,11 +1,6 @@
 import { Menu, MenuProps } from 'antd'
 import { useState, type FC } from 'react'
-import {
-  useAsyncValue,
-  useLoaderData,
-  useLocation,
-  useNavigate,
-} from 'react-router-dom'
+import { useAsyncValue, useLocation, useNavigate } from 'react-router-dom'
 import {
   HomeOutlined,
   ReadOutlined,

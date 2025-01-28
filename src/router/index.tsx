@@ -1,106 +1,196 @@
 import { createBrowserRouter } from 'react-router-dom'
 
-import Login, { action as loginAction } from '@/views/auth/login.tsx'
-import Reg, { action as regAction } from '@/views/auth/reg.tsx'
-import Root, { loader as rootLoader } from '@/views/root/root.tsx'
-import UserInfo, { action as userInfoAction } from '@/views/user/user-info.tsx'
-import UserPassword, {
-  action as userPwdAction,
-} from '@/views/user/user-password.tsx'
-import UserAvatar, {
-  action as userAvatarAction,
-} from '@/views/user/user-avatar.tsx'
-
-import ArticleCate, {
-  loader as articleCateLoader,
-  action as articleCateAction,
-} from '@/views/article/article-cate.tsx'
-import ArticleAdd, {
-  loader as articleAddLoader,
-  action as articleAddAction,
-} from '@/views/article/article-add.tsx'
-import ArticleEdit, {
-  loader as articleEditLoader,
-  action as articleEditAction,
-} from '@/views/article/article-edit.tsx'
-import ArticleList, {
-  loader as articleListLoader,
-  action as articleListAction,
-} from '@/views/article/article-list.tsx'
-
 import AuthLayout from '@/views/auth/auth-layout.tsx'
 import RootAuth from '@/views/root/root-auth.tsx'
-import Home from '@/views/home/home.tsx'
-
+import RouterErrorElement from '@/components/common/router-error-element'
+import nProgress from 'nprogress'
+import 'nprogress/nprogress.css'
 const route = createBrowserRouter([
   {
     path: '/login',
-    element: (
-      <AuthLayout>
-        <Login />
-      </AuthLayout>
-    ),
-    action: loginAction,
+    errorElement: <RouterErrorElement />,
+    async lazy() {
+      const { default: Login, action } = await import('@/views/auth/login.tsx')
+      return {
+        element: (
+          <AuthLayout>
+            <Login />
+          </AuthLayout>
+        ),
+        action,
+      }
+    },
   },
   {
     path: '/reg',
-    element: (
-      <AuthLayout>
-        <Reg />
-      </AuthLayout>
-    ),
-    action: regAction,
+    errorElement: <RouterErrorElement />,
+    async lazy() {
+      const { default: Reg, action } = await import('@/views/auth/reg.tsx')
+      return {
+        element: (
+          <AuthLayout>
+            <Reg />
+          </AuthLayout>
+        ),
+        action,
+      }
+    },
   },
   {
     path: '/',
-    element: (
-      <RootAuth>
-        <Root />
-      </RootAuth>
-    ),
-    loader: rootLoader,
+    errorElement: <RouterErrorElement />,
+    async lazy() {
+      const { default: Root, loader } = await import('@/views/root/root.tsx')
+      return {
+        element: (
+          <RootAuth>
+            <Root />
+          </RootAuth>
+        ),
+        loader,
+      }
+    },
     children: [
-      { index: true, element: <Home /> },
-      { path: 'home', element: <Home /> },
       {
-        path: 'user-avatar',
-        element: <UserAvatar />,
-        action: userAvatarAction,
-      },
-      { path: 'user-info', element: <UserInfo />, action: userInfoAction },
-      { path: 'user-pwd', element: <UserPassword />, action: userPwdAction },
-      {
-        path: 'art-add',
-        element: <ArticleAdd />,
-        loader: articleAddLoader,
-        action: articleAddAction,
-        shouldRevalidate: () => {
-          return false
-        },
-      },
-      {
-        path: 'art-cate',
-        element: <ArticleCate />,
-        loader: articleCateLoader,
-        action: articleCateAction,
-      },
-      {
-        path: 'art-edit/:id',
-        element: <ArticleEdit />,
-        loader: articleEditLoader,
-        action: articleEditAction,
-        shouldRevalidate: () => {
-          return false
-        },
-      },
-      {
-        path: 'art-list',
-        element: <ArticleList />,
-        loader: articleListLoader,
-        action: articleListAction,
+        errorElement: <RouterErrorElement />,
+        children: [
+          {
+            index: true,
+            async lazy() {
+              const { default: Home } = await import('@/views/home/home.tsx')
+              return { Component: Home }
+            },
+          },
+          {
+            path: 'home',
+            async lazy() {
+              const { default: Home } = await import('@/views/home/home.tsx')
+              return { Component: Home }
+            },
+          },
+          {
+            path: 'user-avatar',
+            async lazy() {
+              const { default: UserAvatar, action } = await import(
+                '@/views/user/user-avatar.tsx'
+              )
+              return {
+                Component: UserAvatar,
+                action,
+              }
+            },
+          },
+          {
+            path: 'user-info',
+            async lazy() {
+              const { default: UserInfo, action } = await import(
+                '@/views/user/user-info.tsx'
+              )
+              return {
+                Component: UserInfo,
+                action,
+              }
+            },
+          },
+          {
+            path: 'user-pwd',
+            async lazy() {
+              const { default: UserPassword, action } = await import(
+                '@/views/user/user-password.tsx'
+              )
+              return {
+                Component: UserPassword,
+                action,
+              }
+            },
+          },
+          {
+            path: 'art-add',
+            async lazy() {
+              const {
+                default: ArticleAdd,
+                loader,
+                action,
+              } = await import('@/views/article/article-add.tsx')
+              return {
+                Component: ArticleAdd,
+                loader,
+                action,
+              }
+            },
+            shouldRevalidate: () => {
+              return false
+            },
+          },
+          {
+            path: 'art-cate',
+            async lazy() {
+              const {
+                default: ArticleCate,
+                action,
+                loader,
+              } = await import('@/views/article/article-cate.tsx')
+              return {
+                Component: ArticleCate,
+                action,
+                loader,
+              }
+            },
+          },
+          {
+            path: 'art-edit/:id',
+            async lazy() {
+              const {
+                default: ArticleEdit,
+                action,
+                loader,
+              } = await import('@/views/article/article-edit.tsx')
+              return {
+                Component: ArticleEdit,
+                loader,
+                action,
+              }
+            },
+            shouldRevalidate: () => {
+              return false
+            },
+          },
+          {
+            path: 'art-list',
+            async lazy() {
+              const {
+                default: ArticleList,
+                action,
+                loader,
+              } = await import('@/views/article/article-list.tsx')
+              return {
+                Component: ArticleList,
+                action,
+                loader,
+              }
+            },
+          },
+          {
+            path: '*',
+            async lazy() {
+              const { default: PageNotFound } = await import(
+                '@/components/common/404.tsx'
+              )
+              return {
+                Component: PageNotFound,
+              }
+            },
+          },
+        ],
       },
     ],
   },
 ])
-
+route.subscribe((state) => {
+  if (state.navigation.location) {
+    nProgress.start()
+  } else {
+    nProgress.done()
+  }
+})
 export default route

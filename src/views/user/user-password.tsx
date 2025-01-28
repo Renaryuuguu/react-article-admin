@@ -3,17 +3,11 @@ import { useNavSubmitting } from '@/utils/hooks'
 import { Button, Form, Input, message, Space, Spin } from 'antd'
 import { useForm } from 'antd/es/form/Form'
 import type { FC } from 'react'
-import {
-  ActionFunctionArgs,
-  useActionData,
-  useNavigation,
-  useSubmit,
-} from 'react-router-dom'
+import { ActionFunctionArgs, useActionData, useSubmit } from 'react-router-dom'
 
 const UserPassword: FC = () => {
   const submit = useSubmit()
   const [formRef] = useForm()
-  const navigation = useNavigation()
   const actionData = useActionData() as { result: boolean } | null
   const submitting = useNavSubmitting('PATCH')
   if (actionData?.result) {

@@ -1,4 +1,4 @@
-import { resetCurrent, setCurrent } from '@/store/art-add-store'
+import { resetCurrent } from '@/store/art-add-store'
 import { Button, Result } from 'antd'
 import type { FC } from 'react'
 import { useActionData, useNavigate } from 'react-router-dom'

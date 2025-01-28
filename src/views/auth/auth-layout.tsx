@@ -2,7 +2,7 @@
 import React, { PropsWithChildren } from 'react'
 import styles from './css/auth-layout.module.less'
 import useAppStore, { selectToken } from '@/store/app-store'
-import { Navigate } from 'react-router-dom'
+import { Navigate, useLocation } from 'react-router-dom'
 // const authLayout = ({ children }: PropsWithChildren) => {
 //   return <div>{children}</div>;
 // };
@@ -10,8 +10,16 @@ import { Navigate } from 'react-router-dom'
 
 const AuthLayout: React.FC<PropsWithChildren> = ({ children }) => {
   const token = useAppStore(selectToken)
+  const location = useLocation()
   if (token) {
-    return <Navigate to="/" replace />
+    let nextURL = ''
+    if (location.search.includes('?from=')) {
+      const search = location.search.replace('?from=', '')
+      nextURL = search ? search : '/'
+    } else {
+      nextURL = '/'
+    }
+    return <Navigate to={nextURL} replace />
   }
   return (
     <div className={styles.container}>

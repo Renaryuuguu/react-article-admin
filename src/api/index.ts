@@ -75,13 +75,15 @@ instance.interceptors.response.use(
 
     if (error.response && error.response.data) {
       const token = useAppStore.getState().token;
-      if (token && error.response.status === 401) {
-
-        message.error("登录过期，请重新登录！")
-        resetAllStore();
+      if (error.response.status === 401) {
+        if (token) {
+          message.error("登录过期，请重新登录！")
+          resetAllStore();
+        }
       } else {
         message.error(error.response.data.message);
       }
+
 
       return Promise.reject(error.response.data);
     } else {
