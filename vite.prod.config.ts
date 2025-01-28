@@ -48,7 +48,9 @@ const prodConfig: UserConfig = {
     },
   },
   build: {
+    outDir: 'docs',
     rollupOptions: {
+
       output: {
         entryFileNames: 'js/entry/[name]-[hash].js',
         chunkFileNames: 'js/chunk/[name]-[hash].js',

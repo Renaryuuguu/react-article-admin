@@ -1,0 +1,1 @@
+import{i as s,j as t}from"../entry/index-poDKF_yo.js";const o=()=>{const e=s();return t.jsx(antd.Result,{status:"404",title:"404",subTitle:"Sorry, the page you visited does not exist.",extra:t.jsx(antd.Button,{type:"primary",onClick:()=>e("/"),children:"返回主页"})})};export{o as default};
