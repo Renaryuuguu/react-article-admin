@@ -1,0 +1,1 @@
+import{y as s,j as t,Z as a,B as o}from"../entry/index-HYVjuyXu.js";const r=()=>{const e=s();return t.jsx(a,{status:"404",title:"404",subTitle:"Sorry, the page you visited does not exist.",extra:t.jsx(o,{type:"primary",onClick:()=>e("/"),children:"返回主页"})})};export{r as default};
