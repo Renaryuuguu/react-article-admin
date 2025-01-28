@@ -1,0 +1,1 @@
+import{i}from"./index-s-kAbaNS.js";const a=t=>i.post("/my/article/add",t),s=t=>i.get("/my/article/list",{params:t}),c=t=>i.delete("/my/article/info",{params:t}),r=t=>i.get("/my/article/info",{params:{id:t}}),p=t=>i.put("/my/article/info",t);export{a,s as b,c as d,r as g,p};
