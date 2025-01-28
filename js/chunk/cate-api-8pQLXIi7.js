@@ -1,1 +1,0 @@
-import{i as e}from"./index-s-kAbaNS.js";const s=()=>e.get("/my/cate/list"),i=t=>e.post("/my/cate/add",t),p=t=>e.put("/my/cate/info",t),o=t=>e.delete("/my/cate/del",{params:t});export{o as d,p as e,s as g,i as p};
