@@ -72,7 +72,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
   const fd = await request.formData()
   try {
     const res = await loginApi(fd)
-    message.success(res.message)
+    // message.success(res.message)
     setToken(res.token)
     // return redirect('/')
     return null
