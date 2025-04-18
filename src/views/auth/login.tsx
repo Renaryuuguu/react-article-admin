@@ -20,50 +20,51 @@ const Login: FC = () => {
     })
   }
   return (
-    <Form
-      wrapperCol={{ span: 24 }}
-      labelCol={{ span: 4 }}
-      onFinish={onFinish}
-      initialValues={{ username: searchParams.get('uname') }}>
-      <Form.Item
-        name="username"
-        label="用户名"
-        rules={[
-          { required: true, message: '请输入用户名' },
-          {
-            pattern: /^[0-9a-zA-Z]{1,10}$/,
-            message: '用户名必须是1-10位的字母数字！',
-          },
-        ]}>
-        <Input prefix={<UserOutlined />} placeholder="请输入用户名" />
-      </Form.Item>
-      <Form.Item
-        name="password"
-        label="密码"
-        rules={[
-          { required: true, message: '请输入密码' },
-          { pattern: /^\S{6,15}$/, message: '密码必须是6-15位的非空字符！' },
-        ]}>
-        <Input
-          prefix={<LockOutlined />}
-          type="password"
-          placeholder="请输入密码"
-        />
-      </Form.Item>
-      <Form.Item wrapperCol={{ offset: 4 }}>
-        <Space direction="vertical">
-          <Button
-            type="primary"
-            htmlType="submit"
-            loading={fetcher.state === 'submitting' && { delay: 200 }}>
-            登录
-          </Button>
-          <div>
-            转到 <Link to="/reg">注册</Link>
-          </div>
-        </Space>
-      </Form.Item>
-    </Form>
+    // <Form
+    //   wrapperCol={{ span: 24 }}
+    //   labelCol={{ span: 4 }}
+    //   onFinish={onFinish}
+    //   initialValues={{ username: searchParams.get('uname') }}>
+    //   <Form.Item
+    //     name="username"
+    //     label="用户名"
+    //     rules={[
+    //       { required: true, message: '请输入用户名' },
+    //       {
+    //         pattern: /^[0-9a-zA-Z]{1,10}$/,
+    //         message: '用户名必须是1-10位的字母数字！',
+    //       },
+    //     ]}>
+    //     <Input prefix={<UserOutlined />} placeholder="请输入用户名" />
+    //   </Form.Item>
+    //   <Form.Item
+    //     name="password"
+    //     label="密码"
+    //     rules={[
+    //       { required: true, message: '请输入密码' },
+    //       { pattern: /^\S{6,15}$/, message: '密码必须是6-15位的非空字符！' },
+    //     ]}>
+    //     <Input
+    //       prefix={<LockOutlined />}
+    //       type="password"
+    //       placeholder="请输入密码"
+    //     />
+    //   </Form.Item>
+    //   <Form.Item wrapperCol={{ offset: 4 }}>
+    //     <Space direction="vertical">
+    //       <Button
+    //         type="primary"
+    //         htmlType="submit"
+    //         loading={fetcher.state === 'submitting' && { delay: 200 }}>
+    //         登录
+    //       </Button>
+    //       <div>
+    //         转到 <Link to="/reg">注册</Link>
+    //       </div>
+    //     </Space>
+    //   </Form.Item>
+    // </Form>
+    <></>
   )
 }
 
