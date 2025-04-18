@@ -48,6 +48,7 @@ const findParentKeys = (
     if (menu.children) {
       const parentKey = findParentKeys(menu.children, key, menu.key)
       if (parentKey) {
+        console.log(parentKey)
         return parentKey
       }
     }
